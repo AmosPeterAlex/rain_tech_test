@@ -1,17 +1,18 @@
-# rain_tech_test
+# Hotel Room Booking — Single Page Web App
 
-A new Flutter project.
+Candidate: Amos P Alex  
+Stack: Flutter Web
 
-## Getting Started
+## Overview
+A single-page hotel room booking application built with Flutter Web, following clean architecture principles (domain, data, bloc, presentation) and styled after the Raintech Hotel management design system.
 
-This project is a starting point for a Flutter application.
+## Setup & Running
+```bash
+flutter pub get
+flutter run -d chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Running Tests
+```bash
+flutter test
+```
