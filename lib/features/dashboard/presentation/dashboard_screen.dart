@@ -990,7 +990,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       value: _selectedRoomNumber,
                       isExpanded: true,
                       hint: const Text('Room #'),
-                      items: ['101', '102', '103', '104', '105', '201', '202', '203'].map((no) {
+                      items: [
+                        ..._floor1Rooms.map((r) => r.number),
+                        ..._floor2Rooms.map((r) => r.number),
+                      ].map((no) {
                         return DropdownMenuItem(
                           value: no,
                           child: Text(
