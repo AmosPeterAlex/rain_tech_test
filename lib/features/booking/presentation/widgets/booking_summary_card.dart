@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../bloc/booking_state.dart';
-import '../../domain/room.dart';
+import 'package:rain_tech_test/features/booking/bloc/booking_state.dart';
 
 class BookingSummaryCard extends StatelessWidget {
   final BookingState state;
@@ -59,12 +58,16 @@ class BookingSummaryCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              const Text(
-                'Finalize Reservation & Billing',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: AppTheme.textDark,
+              const Expanded(
+                child: Text(
+                  'Finalize Reservation & Billing',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textDark,
+                  ),
                 ),
               ),
             ],
@@ -372,16 +375,20 @@ class BookingSummaryCard extends StatelessWidget {
                 children: [
                   const Icon(Icons.check_circle_outline_rounded, size: 18),
                   const SizedBox(width: 8),
-                  Text(
-                    state.selectedRoom == null
-                        ? 'Select a Room to Continue'
-                        : 'Confirm & Complete Booking',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: state.isReadyToBook
-                          ? Colors.white
-                          : AppTheme.textMuted,
+                  Flexible(
+                    child: Text(
+                      state.selectedRoom == null
+                          ? 'Select a Room to Continue'
+                          : 'Confirm & Complete Booking',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: state.isReadyToBook
+                            ? Colors.white
+                            : AppTheme.textMuted,
+                      ),
                     ),
                   ),
                 ],

@@ -5,22 +5,21 @@ import '../../../core/utils/date_validators.dart';
 import 'booking_state.dart';
 
 class BookingCubit extends Cubit<BookingState> {
-  final BookingRepository _repository;
+  final BookingRepository repository;
   final DateTime Function() _nowProvider;
 
   BookingCubit({
-    required BookingRepository repository,
+    required this.repository,
     DateTime Function()? nowProvider,
-  })  : _repository = repository,
-        _nowProvider = nowProvider ?? DateTime.now,
+  })  : _nowProvider = nowProvider ?? DateTime.now,
         super(const BookingState());
 
   /// Loads rooms and existing bookings from the repository
   Future<void> loadInitialData() async {
     emit(state.copyWith(status: BookingStatus.loading));
     try {
-      final rooms = await _repository.getRooms();
-      final bookings = await _repository.getExistingBookings();
+      final rooms = await repository.getRooms();
+      final bookings = await repository.getExistingBookings();
 
       final today = DateValidators.normalizeDate(_nowProvider());
       final defaultCheckIn = today;
