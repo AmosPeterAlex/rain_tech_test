@@ -60,7 +60,6 @@ class AppShell extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isCompact = constraints.maxWidth < 900;
           final hideDate = constraints.maxWidth < 1400;
 
           return Row(
@@ -111,39 +110,6 @@ class AppShell extends StatelessWidget {
                   ],
                 ),
               ),
-
-              const SizedBox(width: 14),
-
-              // Navigation Tabs
-              if (!isCompact) ...[
-                _buildNavTab(
-                  label: 'Dashboard',
-                  icon: Icons.dashboard_outlined,
-                  isSelected: activeTab == AppTab.dashboard,
-                  onTap: () => nav.setTab(AppTab.dashboard),
-                ),
-                const SizedBox(width: 4),
-                _buildNavTab(
-                  label: 'Check-in',
-                  icon: Icons.login_rounded,
-                  isSelected: activeTab == AppTab.checkIn,
-                  onTap: () => nav.setTab(AppTab.checkIn),
-                ),
-                const SizedBox(width: 4),
-                _buildNavTab(
-                  label: 'Check-Out',
-                  icon: Icons.logout_rounded,
-                  isSelected: activeTab == AppTab.checkOut,
-                  onTap: () => nav.setTab(AppTab.checkOut),
-                ),
-                const SizedBox(width: 4),
-                _buildNavTab(
-                  label: 'Reservations',
-                  icon: Icons.bed_outlined,
-                  isSelected: activeTab == AppTab.reservations,
-                  onTap: () => nav.setTab(AppTab.reservations),
-                ),
-              ],
 
               const Spacer(),
 
@@ -216,41 +182,6 @@ class AppShell extends StatelessWidget {
             ],
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildNavTab({
-    required String label,
-    required IconData icon,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primaryNavy : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 15, color: isSelected ? Colors.white : AppTheme.textMuted),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                color: isSelected ? Colors.white : AppTheme.textDark,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

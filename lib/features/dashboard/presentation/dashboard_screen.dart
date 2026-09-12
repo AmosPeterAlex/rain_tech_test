@@ -42,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _initRooms() {
-    // Floor 1 (rooms 101 - 116)
+    // Floor 1 — rooms 101 to 131, each unique
     _floor1Rooms = [
       DashboardRoomItem(number: '101', floor: 1, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '102', floor: 1, status: DashboardRoomStatus.available),
@@ -60,33 +60,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
       DashboardRoomItem(number: '114', floor: 1, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '115', floor: 1, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '116', floor: 1, status: DashboardRoomStatus.available),
-      // Second row floor 1
-      DashboardRoomItem(number: '101', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '102', floor: 1, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '103', floor: 1, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '104', floor: 1, status: DashboardRoomStatus.dirty),
-      DashboardRoomItem(number: '105', floor: 1, status: DashboardRoomStatus.dirty),
-      DashboardRoomItem(number: '106', floor: 1, status: DashboardRoomStatus.maintenance),
-      DashboardRoomItem(number: '107', floor: 1, status: DashboardRoomStatus.maintenance),
-      DashboardRoomItem(number: '108', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '109', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '110', floor: 1, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '111', floor: 1, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '112', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '113', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '114', floor: 1, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '115', floor: 1, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '190', floor: 1, status: DashboardRoomStatus.maintenance),
+      DashboardRoomItem(number: '117', floor: 1, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '118', floor: 1, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '119', floor: 1, status: DashboardRoomStatus.dirty),
+      DashboardRoomItem(number: '120', floor: 1, status: DashboardRoomStatus.dirty),
+      DashboardRoomItem(number: '121', floor: 1, status: DashboardRoomStatus.maintenance),
+      DashboardRoomItem(number: '122', floor: 1, status: DashboardRoomStatus.maintenance),
+      DashboardRoomItem(number: '123', floor: 1, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '124', floor: 1, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '125', floor: 1, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '126', floor: 1, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '127', floor: 1, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '128', floor: 1, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '129', floor: 1, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '130', floor: 1, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '131', floor: 1, status: DashboardRoomStatus.maintenance),
     ];
 
-    // Floor 2 (rooms 201 - 216)
+    // Floor 2 — rooms 201 to 231, each unique
     _floor2Rooms = [
       DashboardRoomItem(number: '201', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '202', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '203', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '204', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '205', floor: 2, status: DashboardRoomStatus.maintenance),
-      DashboardRoomItem(number: '210', floor: 2, status: DashboardRoomStatus.blocked),
+      DashboardRoomItem(number: '206', floor: 2, status: DashboardRoomStatus.blocked),
       DashboardRoomItem(number: '207', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '208', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '209', floor: 2, status: DashboardRoomStatus.available),
@@ -97,53 +95,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
       DashboardRoomItem(number: '214', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '215', floor: 2, status: DashboardRoomStatus.available),
       DashboardRoomItem(number: '216', floor: 2, status: DashboardRoomStatus.available),
-      // Second row floor 2
-      DashboardRoomItem(number: '201', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '202', floor: 2, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '203', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '204', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '205', floor: 2, status: DashboardRoomStatus.maintenance),
-      DashboardRoomItem(number: '206', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '207', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '208', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '209', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '210', floor: 2, status: DashboardRoomStatus.blocked),
-      DashboardRoomItem(number: '201', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '202', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '203', floor: 2, status: DashboardRoomStatus.occupied),
-      DashboardRoomItem(number: '204', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '205', floor: 2, status: DashboardRoomStatus.available),
-      DashboardRoomItem(number: '206', floor: 2, status: DashboardRoomStatus.dirty),
+      DashboardRoomItem(number: '217', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '218', floor: 2, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '219', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '220', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '221', floor: 2, status: DashboardRoomStatus.maintenance),
+      DashboardRoomItem(number: '222', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '223', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '224', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '225', floor: 2, status: DashboardRoomStatus.blocked),
+      DashboardRoomItem(number: '226', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '227', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '228', floor: 2, status: DashboardRoomStatus.occupied),
+      DashboardRoomItem(number: '229', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '230', floor: 2, status: DashboardRoomStatus.available),
+      DashboardRoomItem(number: '231', floor: 2, status: DashboardRoomStatus.dirty),
     ];
   }
 
-  void _cycleRoomStatus(DashboardRoomItem item) {
-    setState(() {
-      switch (item.status) {
-        case DashboardRoomStatus.available:
-          item.status = DashboardRoomStatus.occupied;
-          break;
-        case DashboardRoomStatus.occupied:
-          item.status = DashboardRoomStatus.dirty;
-          break;
-        case DashboardRoomStatus.dirty:
-          item.status = DashboardRoomStatus.maintenance;
-          break;
-        case DashboardRoomStatus.maintenance:
-          item.status = DashboardRoomStatus.blocked;
-          break;
-        case DashboardRoomStatus.blocked:
-          item.status = DashboardRoomStatus.available;
-          break;
-      }
-      _selectedRoomNumber = item.number;
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Room ${item.number} status updated to ${item.status.name.toUpperCase()}'),
-        duration: const Duration(seconds: 1),
-      ),
-    );
+  /// Selects a room tile for highlight — does NOT change its status.
+  void _selectRoom(DashboardRoomItem item) {
+    setState(() => _selectedRoomNumber = item.number);
   }
 
   @override
@@ -649,7 +621,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _buildLegendTag(const Color(0xFFFB923C), 'Maintenance'),
               _buildLegendTag(const Color(0xFF94A3B8), 'Blocked'),
               const Text(
-                'Clicking a room tile opens quick-edit / cycles status',
+                'Tap a room tile to select it — change status via Quick Status Changer below',
                 style: TextStyle(
                   fontSize: 11,
                   fontStyle: FontStyle.italic,
@@ -723,7 +695,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               final isSelected = _selectedRoomNumber == room.number;
 
               return InkWell(
-                onTap: () => _cycleRoomStatus(room),
+                onTap: () => _selectRoom(room),
                 borderRadius: BorderRadius.circular(4),
                 child: Container(
                   width: 36,
