@@ -1,29 +1,45 @@
-# Raintech Hotel — Room Booking (Flutter Web)
+# Raintech Hotel Management Suite (Flutter Web)
 
 **Candidate:** Amos P Alex  
 **Stack:** Flutter Web (`flutter_bloc`, `equatable`, `intl`)  
-**Design Reference:** Raintech Hotel Management System Dashboard
+**Design Reference:** Raintech Hotel Management System Product Suite
 
 ---
 
 ## 🏨 Overview
-This project is a high-performance, single-page Hotel Room Booking application built in Flutter Web. It translates the visual identity and layout patterns of the Raintech Hotel dashboard into an interactive guest reservation flow with robust date validation, dynamic pricing calculation, and real-time reservation conflict detection.
+This project is a complete Flutter Web implementation of the **Raintech Hotel Management System**, faithfully recreating all 3 product interfaces from the design specifications:
+1. 📊 **Main Dashboard**: Real-time operations overview, quick action cards, 50-room interactive floor plan with live status cycling, vacating rooms schedule, and status changer toolbar.
+2. 🛎️ **Guest Check-in**: 3-step guest arrival workflow with ID document preview, guest details update, interactive in-house guest data table, and payment finalization.
+3. 🚪 **Guest Check-out**: Multi-room departure management, itemized bill review (room charges, mini-bar, room service, restaurant charges), payment method processing, and invoice generation.
+4. 📅 **Room Booking & Reservations**: Dedicated room reservation engine with pure date validations, 12% GST calculation, and conflict checking.
 
 ---
 
-## 📐 Architecture & Folder Structure
-
-The application follows clean architecture principles with feature-based modularity:
+## 🏛 Architecture & Folder Structure
 
 ```
 lib/
-├── main.dart                                   # App entry point, Provider setup & theme
+├── main.dart                                   # App entry point, MultiBlocProvider & Theme setup
 ├── core/
 │   ├── theme/
-│   │   └── app_theme.dart                      # Design tokens: palette, typography, shadows
+│   │   └── app_theme.dart                      # Design tokens (colors, radii, shadows, typography)
 │   └── utils/
-│       └── date_validators.dart                # Pure validation, conflict & pricing math
+│       └── date_validators.dart                # Pure validation, pricing, and overlap algorithms
 └── features/
+    ├── navigation/
+    │   ├── cubit/
+    │   │   └── navigation_cubit.dart           # Active screen navigation state
+    │   └── presentation/
+    │       └── app_shell.dart                  # Top navigation bar & global screen switcher
+    ├── dashboard/
+    │   └── presentation/
+    │       └── dashboard_screen.dart           # Main Dashboard (Screenshot 2)
+    ├── checkin/
+    │   └── presentation/
+    │       └── checkin_screen.dart             # Guest Check-in (Screenshot 1)
+    ├── checkout/
+    │   └── presentation/
+    │       └── checkout_screen.dart            # Guest Check-out (Screenshot 3)
     └── booking/
         ├── domain/
         │   ├── room.dart                       # Room entity & RoomType definitions
@@ -32,84 +48,63 @@ lib/
         ├── data/
         │   └── mock_room_repository.dart       # Mock inventory across Floor 1 & Floor 2
         ├── bloc/
-        │   ├── booking_cubit.dart              # Cubit state manager
+        │   ├── booking_cubit.dart              # Reactive business logic manager
         │   └── booking_state.dart              # Immutable state with Equatable
         └── presentation/
-            ├── booking_screen.dart             # Responsive page orchestrator
+            ├── booking_screen.dart             # Dedicated booking & reservation screen
             └── widgets/
-                ├── header_bar.dart             # Raintech hotel branding, search & actions
-                ├── date_picker_row.dart        # Date selectors, guest count & category filters
-                ├── room_grid.dart              # Interactive floor view (Floor 1 & 2)
-                ├── booking_summary_card.dart   # Pricing breakdown & inline warning banner
+                ├── header_bar.dart             # Top header bar
+                ├── date_picker_row.dart        # Date selectors & category filter chips
+                ├── room_grid.dart              # Interactive floor view (Floors 1 & 2)
+                ├── booking_summary_card.dart   # Billing breakdown & warning banners
                 └── booking_success_dialog.dart # Reservation confirmation receipt
 ```
 
 ---
 
-## 🎨 Design Reference & Visual Language
+## 🖥️ Screen Features Breakdown
 
-- **Color System:**
-  - Canvas: Warm light-beige background (`#F5EFE6`).
-  - Surface: Crisp white rounded cards with soft borders (`#E6DFD5`) and subtle diffused box shadows.
-  - Primary: Deep Executive Navy (`#132B45`) for primary actions, header badges, and selected highlights.
-  - Luxury Gold Accent: (`#D4AF37` / `#FBBF24`) for room badges and active highlights.
-  - Status Indicators: Mint Green (`#2E7D32`) for available rooms, Coral Red (`#C62828`) for booked conflicts, and Amber (`#D97706`) for validation warnings.
-- **Interactive Floor View:**
-  - Rooms organized by **Floor 1** and **Floor 2** in an interactive grid view matching the dashboard's "Room Status — Interactive Floor View".
-  - Color-coded badges for room categories (`Standard`, `Deluxe`, `Executive Suite`, `Family Suite`).
-  - Real-time conflict checks flag occupied/reserved rooms for the selected date range.
-- **Summary & Checkout Panel:**
-  - Styled after the "Finalize Check-in & Payment" panel from the reference screenshots.
-  - Automatic line-item breakdown: room charges, 12% GST tax calculation, stay duration, and grand total.
-  - Inline amber warning banners for validation feedback (e.g., past dates, same-day checkout, booking conflicts, guest count exceeding capacity).
+### 1. Main Dashboard (`dashboard_screen.dart` — Screenshot 2)
+- **12 Action Cards Grid:** Direct one-click navigation to Check-in, Check-out, Reservations, Housekeeping, Restaurant, WhatsApp, Rooms, Staff (with "2 tasks" badge), Floors, Reports, Settings, and Group Booking.
+- **Operational Overview:** Live metrics for Occupancy (`4%`), Pending Check-ins (`0`), Pending Departures (`0`), and Revenue Today (`₹0`).
+- **Interactive Floor View (50 Rooms):** Color-coded status tiles across Floor 1 and Floor 2 (`Available`, `Occupied`, `Dirty`, `Maintenance`, `Blocked`) with dynamic status cycling on click and a `200 Rooms Total / 4% Occupied` doughnut meter.
+- **Going to Vacate Rooms:** Room 101 & 102 departure cards with warning alert chip for overdue cleaning.
+- **Quick Room Status Changer:** Dropdown room selector with "Cleaning done, ready to serve", "Set all Dirty to Cleaning", and "View All Maintenance".
 
----
+### 2. Guest Check-in (`checkin_screen.dart` — Screenshot 1)
+- **1. Select Booking & Guest:** Search bar, customer dropdown with `+ Add Guest`, booking date and time.
+- **2. Review & Update Details:** Room No gold badge (`101`), Rent (`₹1200.00`), GST (`112.00%`), Tenant Name, Adults/Kids counter, checkout date picker, ID proof file attachment with `Upload ID`, and action bar (`Delete`, `Edit`, `Update`, `Confirm Guest Details`).
+- **In-House Guest Data Table:** Tabular list for Rooms 102–111 with rent, GST, guest name, adults/kids, senior citizen count, checkout date, ID proof link, and action menu.
+- **3. Finalize Check-in & Payment:** Pricing summary (Room charge, Extra charges, Tax, Total), "Complete Check-in" primary navy button, and secondary actions (`Get Data`, `M-Pay`, `Print`, `Print Registration Card`, `Download Folio`).
 
-## 🧪 Pure Functions & Business Logic
-
-All calculation and date validation rules are isolated in pure functions within `lib/core/utils/date_validators.dart`:
-- `calculateNights(checkIn, checkOut)`: Computes calendar day difference (returns 0 for same-day or invalid ranges).
-- `calculateTotal(pricePerNight, nights, {taxRate})`: Calculates room charge, tax rate (12% GST), and grand total.
-- `validateDates(checkIn, checkOut, {referenceNow})`: Ensures check-in is not in the past, checkout is strictly after check-in, and maximum duration limits.
-- `hasBookingConflict(roomId, checkIn, checkOut, existingBookings)`: Interval overlap verification: `checkIn < existingEnd && checkOut > existingStart`.
+### 3. Guest Check-out (`checkout_screen.dart` — Screenshot 3)
+- **1. Identify Departing Guest:** Guest lookup, room number stepper, guest info badge (`Room 101`), and multi-room departure selector (Room 101 & 103 checkboxes).
+- **2. Review & Finalize Bill:** Multi-room billing cards for [Room 101] and [Room 103] with itemized additional charges (Mini-bar, Room Service, Restaurant Bill), invoice printing, and combined total (`₹8200.00`).
+- **3. Payment & Check-out:** Payment method picker (`Credit Card`, `Cash`, `M-Pay`), payment amount input, "Process Payment & Check-out" button, "Combine and Proceed with Selected Rooms" button, and invoice printing/emailing.
 
 ---
 
-## 🚀 Getting Started
+## 🧪 Testing & Quality Assurance
 
-### 1. Prerequisites
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) (v3.13+ or higher)
-- Google Chrome (or any modern web browser)
+- **Pure Date & Price Math Tests:** `test/date_validators_test.dart`
+- **Cubit State Transitions & Overlap Detection:** `test/booking_cubit_test.dart`
+- **Multi-Screen Navigation & Widget Smoke Tests:** `test/widget_test.dart`
 
-### 2. Install Dependencies
 ```bash
-flutter pub get
-```
-
-### 3. Run on Web
-```bash
-flutter run -d chrome
-```
-
-### 4. Run Automated Tests
-```bash
+# Run all tests
 flutter test
-```
 
-### 5. Run Analyzer
-```bash
+# Run code analyzer
 flutter analyze
 ```
 
+**Results:** 25 / 25 automated tests passing with 0 warnings/errors.
+
 ---
 
-## 📋 Features Checklist
+## 🚀 How to Run Locally
 
-- [x] **Project Scaffolding:** Clean feature-based directory structure with `flutter_bloc` & `equatable`.
-- [x] **Domain Models:** `Room`, `RoomType`, `BookingSelection`, `BookingRecord`.
-- [x] **Mock Inventory:** Multi-floor room data (Floor 1 & Floor 2) with amenities, pricing, and capacities.
-- [x] **Pure Math & Date Logic:** Zero-dependency calculation algorithms with unit test coverage.
-- [x] **State Management:** `BookingCubit` handling reactive selection, validation, filtering, and conflicts.
-- [x] **Unit & Bloc Tests:** 100% passing test suite for edge cases, pricing mathematics, state emissions, and conflict checks.
-- [x] **Raintech Hotel UI:** High-fidelity implementation matching provided dashboard screenshots.
-- [x] **Bonus Features:** Booking conflict detection against reservations and dynamic guest/category filters.
+```bash
+flutter pub get
+flutter run -d chrome
+```

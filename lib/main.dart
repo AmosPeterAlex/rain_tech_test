@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/theme/app_theme.dart';
 import 'features/booking/bloc/booking_cubit.dart';
 import 'features/booking/data/mock_room_repository.dart';
-import 'features/booking/presentation/booking_screen.dart';
+import 'features/navigation/cubit/navigation_cubit.dart';
+import 'features/navigation/presentation/app_shell.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,15 +18,22 @@ class RaintechHotelBookingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => MockRoomRepository(),
-      child: BlocProvider(
-        create: (context) => BookingCubit(
-          repository: context.read<MockRoomRepository>(),
-        )..loadInitialData(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => NavigationCubit(),
+          ),
+          BlocProvider(
+            create: (context) => BookingCubit(
+              repository: context.read<MockRoomRepository>(),
+            )..loadInitialData(),
+          ),
+        ],
         child: MaterialApp(
-          title: 'Raintech Hotel - Room Booking',
+          title: 'Raintech Hotel - Management Suite',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-          home: const BookingScreen(),
+          home: const AppShell(),
         ),
       ),
     );
